@@ -1,3 +1,7 @@
-Django>=5.0
+Django>=5.0,<7.0
 Pillow
+gunicorn
+whitenoise
+dj-database-url
+psycopg2-binary
 mysqlclient
