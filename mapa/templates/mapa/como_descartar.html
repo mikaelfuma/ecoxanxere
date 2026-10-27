@@ -1,0 +1,49 @@
+{% load static %}<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#6EE7B7">
+<title>Como descartar · EcoXanxerê</title>
+<meta name="description" content="Como descartar corretamente pilhas, medicamentos, óleo de cozinha, eletrônicos e lâmpadas em Xanxerê.">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'mapa/icones/favicon-32x32.png' %}">
+<link rel="shortcut icon" href="{% static 'mapa/icones/favicon.ico' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'mapa/variables.css' %}">
+<link rel="stylesheet" href="{% static 'mapa/pagina.css' %}">
+</head>
+<body>
+  <header class="topo">
+    <a href="{% url 'index' %}" class="voltar">← Voltar ao mapa</a>
+    <h1>Como descartar cada material</h1>
+    <p>Orientações gerais para o descarte correto. Antes de sair de casa, confirme no ponto de coleta o que ele aceita e o horário.</p>
+    <nav class="atalhos" aria-label="Materiais">
+      {% for g in guia %}<a href="#{{ g.tipo }}" style="--cor: {{ g.cor }}"><span class="ponto"></span>{{ g.nome }}</a>{% endfor %}
+    </nav>
+  </header>
+
+  <main class="conteudo">
+    {% for g in guia %}
+    <section id="{{ g.tipo }}" class="cartao" style="--cor: {{ g.cor }}">
+      <div class="cartao-topo">
+        <span class="icone"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ g.svg }}</svg></span>
+        <h2>{{ g.nome }}</h2>
+      </div>
+      <p class="porque"><b>Por que não jogar no lixo comum?</b> {{ g.porque }}</p>
+      <h3>Como fazer</h3>
+      <ol>{% for item in g.como %}<li>{{ item }}</li>{% endfor %}</ol>
+      <h3 class="nao-titulo">Evite</h3>
+      <ul class="nao">{% for item in g.nao %}<li>{{ item }}</li>{% endfor %}</ul>
+      <p class="base">{{ g.base }}</p>
+      <a class="ver-mapa" href="{% url 'index' %}">Ver pontos no mapa</a>
+    </section>
+    {% endfor %}
+  </main>
+
+  <footer class="rodape">
+    Projeto Integrador · IFSC Campus Xanxerê · Mikael, Davi C. Krahl e Joel L. Costa
+  </footer>
+</body>
+</html>

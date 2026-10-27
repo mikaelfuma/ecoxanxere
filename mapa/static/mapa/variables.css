@@ -1,0 +1,42 @@
+:root {
+  color-scheme: dark;
+  /* Paleta — tema escuro, mapa em primeiro plano */
+  --bg: #0B0E0C;
+  --surface: #141815;
+  --surface-glass: rgba(18, 22, 20, 0.68);
+  --surface-glass-strong: rgba(14, 17, 15, 0.86);
+  --ink: #F2F5F2;
+  --ink-soft: #98A39C;
+  --line: rgba(255, 255, 255, 0.09);
+
+  --primary: #6EE7B7;
+  --primary-ink: #06281B;
+
+  /* Cores por tipo de resíduo (usadas no brilho dos pins) */
+  --pilhas: #FF5D73;
+  --medicamentos: #2EE6D6;
+  --oleo: #FFB238;
+  --eletronicos: #A78BFA;
+  --lampadas: #4EA8FF;
+
+  /* Tipografia */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Raio */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+
+  /* Sombra */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.35);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.45);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.55);
+
+  /* Dimensões e variações usadas por layout.css / components.css */
+  --header-h: 64px;
+  --filtros-h: 54px;
+  --primary-dark: #3FD9A0;
+  --primary-soft: rgba(110, 231, 183, 0.12);
+}
