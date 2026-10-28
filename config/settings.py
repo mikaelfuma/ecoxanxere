@@ -139,6 +139,7 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SESSION_COOKIE_HTTPONLY = True
     X_FRAME_OPTIONS = 'DENY'
+    SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 
 # Atrás de proxy (ex.: PythonAnywhere) o IP real vem em X-Forwarded-For
 CONFIAR_PROXY = os.environ.get('CONFIAR_PROXY', '0') == '1'
