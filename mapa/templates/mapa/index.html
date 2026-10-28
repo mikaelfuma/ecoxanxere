@@ -5,18 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>EcoXanxerê · Descarte Especial</title>
 
-<!-- Aba do navegador (a maioria dos navegadores modernos) -->
+<!-- Aba do navegador -->
 <link rel="icon" type="image/png" sizes="16x16" href="{% static 'mapa/icones/favicon-16x16.png' %}">
 <link rel="icon" type="image/png" sizes="32x32" href="{% static 'mapa/icones/favicon-32x32.png' %}">
 <link rel="icon" type="image/png" sizes="48x48" href="{% static 'mapa/icones/favicon-48x48.png' %}">
-<!-- Navegadores antigos / Windows -->
 <link rel="shortcut icon" href="{% static 'mapa/icones/favicon.ico' %}">
-<!-- Ícone ao salvar na tela inicial do iPhone/iPad -->
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'mapa/icones/apple-touch-icon.png' %}">
-<!-- Ícone grande para Android e para o Google usar em resultados de busca -->
 <link rel="icon" type="image/png" sizes="192x192" href="{% static 'mapa/icones/android-chrome-192x192.png' %}">
 <link rel="icon" type="image/png" sizes="512x512" href="{% static 'mapa/icones/android-chrome-512x512.png' %}">
-<!-- Instalação como app (PWA) no celular -->
 <link rel="manifest" href="{% static 'mapa/icones/site.webmanifest' %}">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#6C5CE7">
@@ -101,12 +97,13 @@
       <details id="add-ponto">
         <summary>+ Sugerir ponto</summary>
         <form id="form-ponto">
-          <input type="text" id="nome" placeholder="Nome do local" required>
-          <input type="text" id="bairro" placeholder="Bairro">
+          {% csrf_token %}
+          <input type="text" id="nome" name="nome" placeholder="Nome do local" required>
+          <input type="text" id="bairro" name="bairro" placeholder="Bairro">
           <div id="grade-tipos" class="grade-tipos" role="group" aria-label="Tipo de resíduo"></div>
-          <input type="hidden" id="tipo-selecionado">
+          <input type="hidden" id="tipo-selecionado" name="tipo">
           <label class="campo-foto">Foto do local (opcional)
-            <input type="file" id="sug-imagem" accept="image/*">
+            <input type="file" id="sug-imagem" name="imagem" accept="image/*">
           </label>
           <input type="text" name="website" id="sug-website" class="armadilha" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button type="submit">Enviar para aprovação</button>
@@ -116,7 +113,9 @@
 
       <a href="{% url 'como_descartar' %}" class="link-como">Como descartar cada material</a>
 
-      <button id="btn-login" type="button" class="link-admin">Área da administração</button>
+      {% if user.is_staff %}
+        <button id="btn-login" type="button" class="link-admin">Área da administração</button>
+      {% endif %}
 
       <footer class="creditos">
         Projeto Integrador · IFSC Campus Xanxerê<br>
@@ -124,7 +123,6 @@
       </footer>
     </aside>
   </main>
-
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
@@ -215,44 +213,45 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="{% static 'mapa/script.js' %}"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const formSugerir = document.getElementById('form-sugerir-ponto');
-        
-        if (formSugerir) {
-          formSugerir.addEventListener('submit', function(e) {
-            e.preventDefault(); // Impede a página de recarregar
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const formSugerir = document.getElementById('form-ponto');
       
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+      if (formSugerir) {
+        formSugerir.addEventListener('submit', function(e) {
+          e.preventDefault();
 
-            fetch('/sugerir/', {
-              method: 'POST',
-              body: new FormData(this),
-              headers: {
-                'X-CSRFToken': csrfToken
-              }
-            })
-            .then(response => {
-              if (!response.ok) throw new Error('Erro na requisição');
-              return response.json();
-            })
-            .then(data => {
-              alert('✅ Sugestão enviada com sucesso!\n\nEla passará por análise da nossa equipe antes de aparecer no mapa. Obrigado por contribuir com Xanxerê!');
-              
-              // Se tiver a função de fechar modal, chama aqui
-              if (typeof fecharModalSugerir === 'function') {
-                fecharModalSugerir();
-              }
-              
-              formSugerir.reset(); // Limpa os campos do formulário
-            })
-            .catch(error => {
-              alert('❌ Ocorreu um erro ao enviar. Por favor, tente novamente.');
-            });
+          const csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
+          const csrfToken = csrfInput ? csrfInput.value : '';
+
+          fetch('/sugerir/', {
+            method: 'POST',
+            body: new FormData(this),
+            headers: {
+              'X-CSRFToken': csrfToken
+            }
+          })
+          .then(response => {
+            if (!response.ok) throw new Error('Erro na requisição');
+            return response.json();
+          })
+          .then(data => {
+            alert('✅ Sugestão enviada com sucesso!\n\nEla passará por análise da nossa equipe antes de aparecer no mapa. Obrigado por contribuir com Xanxerê!');
+            
+            const addPontoDetails = document.getElementById('add-ponto');
+            if (addPontoDetails) {
+              addPontoDetails.removeAttribute('open');
+            }
+            
+            formSugerir.reset();
+          })
+          .catch(error => {
+            alert('❌ Ocorreu um erro ao enviar. Por favor, tente novamente.');
           });
-        }
-      });
-    </script>
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
