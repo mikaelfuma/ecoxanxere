@@ -215,5 +215,44 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="{% static 'mapa/script.js' %}"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const formSugerir = document.getElementById('form-sugerir-ponto');
+        
+        if (formSugerir) {
+          formSugerir.addEventListener('submit', function(e) {
+            e.preventDefault(); // Impede a página de recarregar
+      
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+            fetch('/sugerir/', {
+              method: 'POST',
+              body: new FormData(this),
+              headers: {
+                'X-CSRFToken': csrfToken
+              }
+            })
+            .then(response => {
+              if (!response.ok) throw new Error('Erro na requisição');
+              return response.json();
+            })
+            .then(data => {
+              alert('✅ Sugestão enviada com sucesso!\n\nEla passará por análise da nossa equipe antes de aparecer no mapa. Obrigado por contribuir com Xanxerê!');
+              
+              // Se tiver a função de fechar modal, chama aqui
+              if (typeof fecharModalSugerir === 'function') {
+                fecharModalSugerir();
+              }
+              
+              formSugerir.reset(); // Limpa os campos do formulário
+            })
+            .catch(error => {
+              alert('❌ Ocorreu um erro ao enviar. Por favor, tente novamente.');
+            });
+          });
+        }
+      });
+    </script>
+
 </body>
 </html>
