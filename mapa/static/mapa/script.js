@@ -326,7 +326,21 @@ document.getElementById('filtro-status').addEventListener('change', (e) => {
 // Abrir/fechar lista no celular
 document.getElementById('btn-lista').addEventListener('click', () => {
   sidebar.classList.add('aberta');
+  document.getElementById('btn-lista').setAttribute('aria-expanded', 'true');
   campoBusca.focus();
+});
+
+// Abrir lista pelo botão que fica sobre o mapa
+document.getElementById('btn-mapa-pontos').addEventListener('click', () => {
+  sidebar.classList.add('aberta');
+  document.getElementById('btn-lista').setAttribute('aria-expanded', 'true');
+  campoBusca.focus();
+});
+
+// Fechar lista
+document.getElementById('fechar-lista').addEventListener('click', () => {
+  sidebar.classList.remove('aberta');
+  document.getElementById('btn-lista').setAttribute('aria-expanded', 'false');
 });
 document.getElementById('fechar-lista').addEventListener('click', () => sidebar.classList.remove('aberta'));
 
