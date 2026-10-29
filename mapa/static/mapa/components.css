@@ -734,3 +734,36 @@ body.escolhendo #map .leaflet-interactive { cursor: crosshair; }
     display: block;
   }
 }
+
+/* Melhorar visual dos campos de seleção */
+select {
+  border: 2px solid #b8c4cc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #263238;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Quando clicar no campo */
+select:focus {
+  outline: none;
+  border-color: #087f5b;
+  box-shadow: 0 0 0 3px rgba(8, 127, 91, 0.2);
+}
+
+/* Opções da lista */
+select option {
+  background-color: #ffffff;
+  color: #263238;
+  padding: 10px;
+}
+
+/* Opção selecionada */
+select option:checked {
+  background-color: #087f5b;
+  color: #ffffff;
+  font-weight: bold;
+}
