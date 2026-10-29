@@ -346,6 +346,12 @@ document.getElementById('fechar-lista').addEventListener('click', () => {
   document.getElementById('btn-lista').setAttribute('aria-expanded', 'false');
 });
 
+// Fechar painel de pontos ao clicar no mapa
+map.getContainer().addEventListener('click', () => {
+  sidebar.classList.remove('aberta');
+  document.getElementById('btn-lista').setAttribute('aria-expanded', 'false');
+});
+
 // Clicar no mapa faz o botão voltar em formato compacto
 map.on('click', () => {
   btnMapaPontos.classList.remove('oculto');
