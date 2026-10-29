@@ -377,7 +377,9 @@ document.getElementById('form-ponto').addEventListener('submit', async (e) => {
   document.querySelectorAll('.tipo-opcao').forEach(b => b.classList.remove('selecionada'));
   document.getElementById('tipo-selecionado').value = '';
   document.getElementById('dica').textContent = 'Sugestão enviada! Ela vai aparecer no mapa assim que for aprovada pela administração. Clique no mapa para enviar outra.';
-toast('Sugestão enviada com sucesso! Aguarde a aprovação da administração.');
+const mensagem = document.getElementById('mensagem-sugestao');
+mensagem.textContent = 'Sugestão enviada com sucesso! Aguarde a aprovação da administração.';
+mensagem.hidden = false;
 });
 
 const gradeTipos = document.getElementById('grade-tipos');
