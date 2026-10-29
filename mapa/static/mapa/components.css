@@ -687,3 +687,28 @@ body.escolhendo #map .leaflet-interactive { cursor: crosshair; }
 .leaflet-container .popup-rota, .leaflet-container .popup-info a { color: var(--primary); }
 .leaflet-container .popup-rota:hover { color: var(--primary-dark); }
 .popup-card b.dist-popup { display: inline; margin: 0; font-size: inherit; font-family: var(--font-body); }
+
+/* Botão flutuante para descobrir a lista de pontos */
+#btn-mapa-pontos {
+  display: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1100;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--primary-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #btn-mapa-pontos {
+    display: block;
+  }
+}
