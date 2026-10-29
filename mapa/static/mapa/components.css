@@ -734,3 +734,43 @@ body.escolhendo #map .leaflet-interactive { cursor: crosshair; }
     display: block;
   }
 }
+/* Opções de tipo de resíduo no formulário de sugestão */
+.grade-tipos .tipo-opcao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #d5dde3;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #263238;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+/* Passar o mouse */
+.grade-tipos .tipo-opcao:hover {
+  border-color: var(--cor-tipo);
+  background: #f1f4f6;
+}
+
+/* Opção selecionada */
+.grade-tipos .tipo-opcao.selecionada {
+  background: var(--cor-tipo);
+  border-color: var(--cor-tipo);
+  color: #ffffff;
+}
+
+/* Ícones acompanham a cor do texto */
+.grade-tipos .tipo-opcao svg {
+  flex-shrink: 0;
+}
+
+/* Destaque ao navegar pelo teclado */
+.grade-tipos .tipo-opcao:focus-visible {
+  outline: 3px solid #263238;
+  outline-offset: 3px;
+}
