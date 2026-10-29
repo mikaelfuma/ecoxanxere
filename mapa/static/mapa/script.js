@@ -323,17 +323,20 @@ document.getElementById('filtro-status').addEventListener('change', (e) => {
   aplicarFiltros();
 });
 
-// Abrir/fechar lista no celular
+// Abrir lista pelo botão do cabeçalho
 document.getElementById('btn-lista').addEventListener('click', () => {
   sidebar.classList.add('aberta');
   document.getElementById('btn-lista').setAttribute('aria-expanded', 'true');
   campoBusca.focus();
 });
 
-// Abrir lista pelo botão que fica sobre o mapa
-document.getElementById('btn-mapa-pontos').addEventListener('click', () => {
+// Botão flutuante do mapa
+const btnMapaPontos = document.getElementById('btn-mapa-pontos');
+
+btnMapaPontos.addEventListener('click', () => {
   sidebar.classList.add('aberta');
   document.getElementById('btn-lista').setAttribute('aria-expanded', 'true');
+  btnMapaPontos.classList.add('oculto');
   campoBusca.focus();
 });
 
@@ -341,6 +344,12 @@ document.getElementById('btn-mapa-pontos').addEventListener('click', () => {
 document.getElementById('fechar-lista').addEventListener('click', () => {
   sidebar.classList.remove('aberta');
   document.getElementById('btn-lista').setAttribute('aria-expanded', 'false');
+});
+
+// Clicar no mapa faz o botão voltar em formato compacto
+map.on('click', () => {
+  btnMapaPontos.classList.remove('oculto');
+  btnMapaPontos.classList.add('compacto');
 });
 document.getElementById('fechar-lista').addEventListener('click', () => sidebar.classList.remove('aberta'));
 
