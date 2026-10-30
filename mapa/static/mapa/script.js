@@ -433,8 +433,15 @@ function atualizarModoAdmin() {
   document.body.classList.toggle('modo-admin', admin);
   document.getElementById('barra-admin').hidden = !admin;
   document.getElementById('add-ponto').hidden = admin;
-  btnLogin.textContent = admin ? 'Sair da administração' : 'Área da administração';
-  if (!admin) { statusAtivo = 'todos'; document.getElementById('filtro-status').value = 'todos'; }
+
+  // Mostra o botão somente para administradores autenticados
+  btnLogin.hidden = !admin;
+  btnLogin.textContent = 'Sair da administração';
+
+  if (!admin) {
+    statusAtivo = 'todos';
+    document.getElementById('filtro-status').value = 'todos';
+  }
 }
 
 btnLogin.addEventListener('click', async () => {
